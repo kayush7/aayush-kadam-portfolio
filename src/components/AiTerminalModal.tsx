@@ -125,14 +125,31 @@ export function AiTerminalModal({ isOpen, onClose }: AiTerminalModalProps) {
   }, [displayed, messages]);
 
   const findResponse = (query: string): string => {
-    const lower = query.toLowerCase();
-    const match = aiResponses.find((r) =>
-      r.keywords.some((kw) => lower.includes(kw.toLowerCase())),
-    );
-    return (
-      match?.response ??
-      "I couldn't find a specific answer to that. Try asking about Aayush's specific skills, projects, or experience — or check the Skills and Projects sections on this page!"
-    );
+    const lower = query.toLowerCase().trim();
+    if (!lower) {
+      return "Ask me anything about Aayush's skills, projects, or experience. Try a prompt below, or type your own question!";
+    }
+    // Score each response by how many of its keywords appear in the query
+    let best: { score: number; index: number } = { score: 0, index: -1 };
+    aiResponses.forEach((r, i) => {
+      const score = r.keywords.reduce(
+        (acc, kw) => acc + (lower.includes(kw.toLowerCase()) ? 1 : 0),
+        0,
+      );
+      if (score > best.score) best = { score, index: i };
+    });
+    if (best.score === 0) {
+      // Provide a helpful default that points to the actual sections
+      return "I don't have a specific answer for that exact question, but here's a quick overview:\n\n" +
+        "**Aayush Kadam** is a **Semester VI Computer Science Engineer** specializing in **AI-integrated full-stack development** (Python Flask, React/TypeScript, PHP/MySQL).\n\n" +
+        "Try asking about:\n" +
+        "• **Gemini & Groq experience** (AI integration in production)\n" +
+        "• **The Snapshot Design Pattern** used in his booking system\n" +
+        "• **His backend & database skills**\n" +
+        "• **Why you should hire him**\n\n" +
+        "Or check the **Skills**, **Projects**, and **Education** sections of the page below!";
+    }
+    return aiResponses[best.index].response;
   };
 
   const sendMessage = (text: string) => {
@@ -184,7 +201,7 @@ export function AiTerminalModal({ isOpen, onClose }: AiTerminalModalProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-50 bg-obsidian/80 backdrop-blur-sm"
+            className="fixed inset-0 z-50 bg-obsidian/70 backdrop-blur-md"
             onClick={onClose}
           />
 
@@ -194,7 +211,7 @@ export function AiTerminalModal({ isOpen, onClose }: AiTerminalModalProps) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 z-50 w-auto md:w-[720px] md:max-h-[85vh] glass-card overflow-hidden flex flex-col"
+            className="fixed inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 z-[60] w-auto md:w-[720px] lg:w-[760px] h-[calc(100vh-2rem)] md:h-auto md:max-h-[85vh] glass-card overflow-hidden flex flex-col shadow-2xl shadow-black/60"
           >
             {/* Header */}
             <div className="flex items-center gap-3 px-5 py-4 border-b border-card-border bg-obsidian/50 shrink-0">

@@ -40,7 +40,7 @@ export function Hero({ onTerminalOpen }: HeroProps) {
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-electric-cyan/5 rounded-full blur-[120px]" />
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gemini-purple/5 rounded-full blur-[120px]" />
 
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-6 py-32 flex flex-col lg:flex-row items-center gap-16">
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-6 py-20 md:py-24 lg:py-32 flex flex-col lg:flex-row items-center gap-10 md:gap-12 lg:gap-16 overflow-visible">
         {/* Left: Text content */}
         <div className="flex-1 text-center lg:text-left">
           {/* Badge */}
@@ -156,7 +156,7 @@ export function Hero({ onTerminalOpen }: HeroProps) {
           initial={{ opacity: 0, x: 40 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          className="w-full max-w-md flex-shrink-0"
+          className="w-full max-w-md flex-shrink-0 overflow-visible"
         >
           <div className="glass-card p-0 overflow-hidden border border-card-border">
             {/* Terminal header */}
@@ -176,7 +176,7 @@ export function Hero({ onTerminalOpen }: HeroProps) {
             </div>
 
             {/* Terminal body */}
-            <div className="p-4 space-y-2 font-mono text-xs bg-obsidian/30 min-h-[280px]">
+            <div className="p-4 space-y-2 font-mono text-xs bg-obsidian/30 min-h-[220px] md:min-h-[260px]">
               {terminalLines.map((line, i) => (
                 <motion.div
                   key={i}
@@ -206,13 +206,16 @@ export function Hero({ onTerminalOpen }: HeroProps) {
             transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
             className="mt-4 text-center"
           >
-            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full tag-pill tag-pill-cyan text-xs">
-              <span className="relative flex h-1.5 w-1.5">
+            <button
+              onClick={onTerminalOpen}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full tag-pill tag-pill-cyan text-xs hover:opacity-80 transition-opacity cursor-pointer"
+            >
+              <span className="relative flex h-1.5 w-1.5 shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-electric-cyan opacity-75" />
                 <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-electric-cyan" />
               </span>
-              Real-time AI query · Click to try
-            </span>
+              <span className="whitespace-nowrap">Real-time AI query · Click to try</span>
+            </button>
           </motion.div>
         </motion.div>
       </div>
