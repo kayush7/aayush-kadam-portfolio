@@ -211,11 +211,12 @@ export function AiTerminalModal({ isOpen, onClose }: AiTerminalModalProps) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 z-[60] w-auto md:w-[720px] lg:w-[760px] h-[calc(100vh-2rem)] md:h-auto md:max-h-[85vh] glass-card overflow-hidden flex flex-col shadow-2xl shadow-black/60"
+            className="fixed inset-0 z-[60] flex items-center justify-center p-4"
           >
-            {/* Header */}
-            <div className="flex items-center gap-3 px-5 py-4 border-b border-card-border bg-obsidian/50 shrink-0">
-              {/* Bot icon */}
+            <div className="w-full max-w-[90vw] md:max-w-[720px] lg:max-w-[760px] max-h-[90vh] md:max-h-[85vh] glass-card overflow-hidden flex flex-col shadow-2xl shadow-black/60">
+              {/* Header */}
+              <div className="flex items-center gap-3 px-5 py-4 border-b border-card-border bg-obsidian/50 shrink-0">
+                {/* Bot icon */}
               <div className="w-9 h-9 rounded-full bg-gradient-to-br from-electric-cyan/20 to-gemini-purple/20 border border-electric-cyan/30 flex items-center justify-center">
                 <Bot size={18} className="text-electric-cyan" />
               </div>
@@ -378,6 +379,7 @@ export function AiTerminalModal({ isOpen, onClose }: AiTerminalModalProps) {
                 </span>
               </div>
             </form>
+            </div>
           </motion.div>
         </>
       )}
