@@ -146,7 +146,7 @@ export function Hero({ onTerminalOpen }: HeroProps) {
               <Mail size={18} />
             </button>
             <span className="text-xs text-text-muted font-mono hidden sm:block">
-              aayushkadam10@gmail.com
+              {profile.email}
             </span>
           </motion.div>
         </div>

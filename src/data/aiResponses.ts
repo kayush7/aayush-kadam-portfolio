@@ -113,7 +113,7 @@ export const aiResponses: AiResponse[] = [
       "- Backend engineering (Python, PHP, or Node.js with secure DB practices)\n" +
       "- Any role where he can work on production systems at the intersection of AI and web development\n\n" +
       "**How to reach him**:\n" +
-      "- Email: aayushkadam10@gmail.com\n" +
+      "- Email: aayushkadam695@gmail.com\n" +
       "- LinkedIn: linkedin.com/in/aayushkadam\n" +
       "- GitHub: github.com/aayushkadam\n\n" +
       "The green status pill at the top of this page reflects his real-time availability. Drop him a message — he responds within 24 hours.",
