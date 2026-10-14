@@ -75,6 +75,7 @@ export function ContactSection() {
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [emailCopied, setEmailCopied] = useState(false);
 
   const validate = (): FormErrors => {
@@ -93,19 +94,44 @@ export function ContactSection() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setSubmitError(null);
     const validationErrors = validate();
     setErrors(validationErrors);
     if (Object.keys(validationErrors).length > 0) return;
 
     setSubmitting(true);
-    // Simulate API call — in a real app this would POST to a backend
-    await new Promise((resolve) => setTimeout(resolve, 1200));
-    setSubmitting(false);
-    setSubmitted(true);
-    fireConfetti();
-    setForm({ name: '', email: '', message: '' });
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: 'f344fd47-e723-43cf-8f74-db529f2a4ad1',
+          name: form.name.trim(),
+          email: form.email.trim(),
+          message: form.message.trim(),
+          from_name: `${form.name.trim()} (Portfolio Contact Form)`,
+          subject: `New Portfolio Message from ${form.name.trim()}`,
+        }),
+      });
 
-    setTimeout(() => setSubmitted(false), 5000);
+      const data = await response.json();
+
+      if (data.success) {
+        setSubmitted(true);
+        fireConfetti();
+        setForm({ name: '', email: '', message: '' });
+        setTimeout(() => setSubmitted(false), 6000);
+      } else {
+        setSubmitError(data.message || 'Something went wrong. Please try again or email directly.');
+      }
+    } catch {
+      setSubmitError('Failed to send message. Please check your connection or email directly.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const copyEmail = () => {
@@ -246,7 +272,17 @@ export function ContactSection() {
                     exit={{ opacity: 0 }}
                     className="text-xs text-success-green text-center font-mono"
                   >
-                    ✓ Thanks! Aayush will reply within 24 hours.
+                    ✓ Thanks! Your message was sent to Aayush's email.
+                  </motion.p>
+                )}
+                {submitError && (
+                  <motion.p
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    className="text-xs text-red-400 text-center font-mono"
+                  >
+                    ✕ {submitError}
                   </motion.p>
                 )}
               </AnimatePresence>
