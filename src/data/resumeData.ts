@@ -146,6 +146,42 @@ export const projects = [
     repoUrl: '#',
     liveUrl: '#',
   },
+  {
+    id: 'archive-submitter',
+    title: 'Archive Submitter',
+    tagline: 'Automated archive submission tool',
+    description:
+      'A tool for automating the submission and management of archive files, handling format conversion, metadata tagging, and repository integration.',
+    tags: ['Python', 'Automation', 'File Management'],
+    highlights: [
+      'Batch processing of archive files (ZIP, TAR, RAR)',
+      'Metadata extraction and tagging for each archive',
+      'Integration with GitHub releases for automated publishing',
+      'Validation of archive integrity before submission',
+    ],
+    hasChart: false,
+    chartType: 'bar' as const,
+    repoUrl: 'https://github.com/kayush7/archive-submitter',
+    liveUrl: '#',
+  },
+  {
+    id: 'mindpulse',
+    title: 'MindPulse',
+    tagline: 'Real-time pulse monitoring dashboard',
+    description:
+      'A real-time monitoring dashboard that visualizes system metrics, alert thresholds, and health indicators with interactive charts and notifications.',
+    tags: ['JavaScript', 'Real-time', 'Monitoring'],
+    highlights: [
+      'Live metric visualization with Chart.js integration',
+      'Custom alert thresholds and notification system',
+      'Historical trend tracking and reporting',
+      'Deployable as a standalone static web app',
+    ],
+    hasChart: true,
+    chartType: 'line' as const,
+    repoUrl: 'https://github.com/kayush7/mindpulse',
+    liveUrl: '#',
+  },
 ];
 
 export const education = [

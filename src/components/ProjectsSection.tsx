@@ -22,12 +22,24 @@ const projectIcons: Record<string, React.ReactNode> = {
   'room-booking': <Cpu size={18} />,
   'secure-crud': <Lock size={18} />,
   'admin-dashboard': <Layout size={18} />,
+  'archive-submitter': <Layout size={18} />,
+  'mindpulse': <Cpu size={18} />,
 };
 
 const projectGradients: Record<string, string> = {
   'room-booking': 'from-electric-cyan/10 to-gemini-purple/10 border-electric-cyan/20',
   'secure-crud': 'from-orange-500/10 to-red-500/10 border-orange-500/20',
   'admin-dashboard': 'from-blue-500/10 to-indigo-500/10 border-blue-500/20',
+  'archive-submitter': 'from-emerald-500/10 to-teal-500/10 border-emerald-500/20',
+  'mindpulse': 'from-rose-500/10 to-pink-500/10 border-rose-500/20',
+};
+
+const projectIconColors: Record<string, string> = {
+  'room-booking': 'bg-electric-cyan/10 text-electric-cyan border-electric-cyan/20',
+  'secure-crud': 'bg-orange-500/10 text-orange-400 border-orange-500/20',
+  'admin-dashboard': 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+  'archive-submitter': 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
+  'mindpulse': 'bg-rose-500/10 text-rose-400 border-rose-500/20',
 };
 
 function RoomBookingChart() {
@@ -106,11 +118,7 @@ function ProjectCard({ project, index }: ProjectCardProps) {
           <div
             className={cn(
               'w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0',
-              project.id === 'room-booking'
-                ? 'bg-electric-cyan/10 text-electric-cyan border border-electric-cyan/20'
-                : project.id === 'secure-crud'
-                ? 'bg-orange-500/10 text-orange-400 border border-orange-500/20'
-                : 'bg-blue-500/10 text-blue-400 border border-blue-500/20',
+              projectIconColors[project.id],
             )}
           >
             {projectIcons[project.id]}
